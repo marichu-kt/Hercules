@@ -45,7 +45,7 @@ Hoy exploré cómo crear un servidor en Python utilizando el módulo `socket`, c
 6. En la consola donde estés ejecutando el servidor Python, verás los mensajes que indican la recepción de datos del cliente Hércules.
 7. En Hércules, puedes desconectar el cliente haciendo clic en el botón "Disconnect".
 
-El programa de escucha en Python es: [Server](server.py)
+El programa de escucha en Python es: [Server](hercules.py)
 
 ![Conexion](/Images/img-1.png)
 
