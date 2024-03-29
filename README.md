@@ -32,3 +32,22 @@ Para utilizar Hercules, simplemente sigue estos pasos:
 5. Explora características como registro de datos y automatización mediante scripts.
 6. Consulta la documentación y busca soporte si es necesario.
 7. Cierra Hercules SETUP Utility al finalizar tus tareas.
+
+## Servidor de escucha
+
+Hoy exploré cómo crear un servidor en Python utilizando el módulo `socket`, con el objetivo de escuchar y mostrar datos enviados por el programa Hercules. Comencé escribiendo código para manejar conexiones de clientes, luego configuré el servidor para aceptar conexiones entrantes. Después de ejecutar la aplicación y conectar Hercules al servidor, pude enviar datos y observar cómo se mostraban en la consola del servidor. Este ejercicio me permitió aprender sobre el manejo de conexiones de red en Python y cómo interactuar con programas externos a través de sockets.
+
+1. Abre el programa Hércules en tu computadora.
+2. En la pestaña "Serial", configura la configuración del puerto serie según sea necesario.
+3. En la pestaña "TCP Client", ingresa la dirección IP y el puerto del servidor Python.
+4. Haz clic en el botón "Connect" para conectarte al servidor Python.
+5. Después de conectar, puedes escribir datos en el campo de entrada y enviarlos al servidor haciendo clic en "Send".
+6. En la consola donde estés ejecutando el servidor Python, verás los mensajes que indican la recepción de datos del cliente Hércules.
+7. En Hércules, puedes desconectar el cliente haciendo clic en el botón "Disconnect".
+
+El programa de escucha en Python es: [Server](server.py)
+
+![Conexion](/Images/img-1.png)
+
+
+
