@@ -49,5 +49,41 @@ El programa de escucha en Python es: [Server](Server.py)
 
 ![Conexion](/Images/img-1.png)
 
+# Programa Cliente/Servidor en Python para Hercules Setup 🐍
 
+Este programa implementa un sistema cliente/servidor en Python utilizando sockets TCP/IP para la comunicación. El servidor está diseñado para funcionar con el software Hercules Setup, permitiendo la comunicación con dispositivos conectados a través de un puerto serie virtual.
 
+## Funcionalidades 🛠️
+
+- **Servidor TCP**: El servidor espera conexiones entrantes de clientes en un puerto específico.
+- **Cliente TCP**: El cliente se conecta al servidor y envía comandos para ser procesados.
+- **Interfaz con Hercules Setup**: El servidor está diseñado para interactuar con el software Hercules Setup para enviar y recibir datos de dispositivos conectados.
+
+![Conexion](/Images/img-2.png)
+
+## Ejemplo de Uso 📝
+
+```python
+# cliente.py
+
+import socket
+
+# Configuración del servidor
+HOST = '127.0.0.1'  # Dirección IP del servidor
+PORT = 12345        # Puerto del servidor
+
+# Crear un socket TCP/IP
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Conectar el socket al servidor
+sock.connect((HOST, PORT))
+
+# Enviar un comando al servidor
+sock.sendall(b'Hola, servidor!')
+
+# Recibir respuesta del servidor
+data = sock.recv(1024)
+print('Respuesta del servidor:', data.decode())
+
+# Cerrar el socket
+sock.close()
