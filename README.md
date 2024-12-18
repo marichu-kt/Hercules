@@ -15,7 +15,7 @@ Hercules SETUP Utility es una potente herramienta de configuración de puerto se
 
 ## Instalación 🛠️
 
-Para instalar PuTTY, sigue estos pasos:
+Para instalar Hercules SETUP Utility, sigue estos pasos:
 
 1. Descarga el instalador adecuado para tu sistema operativo desde el sitio web oficial de Hercules: [hw-group.com/]([https://www.hw-group.com/software/hercules-setup-utility]).
 2. Conecta tus dispositivos y configura los puertos según tus necesidades.
@@ -45,7 +45,7 @@ Hoy exploré cómo crear un servidor en Python utilizando el módulo `socket`, c
 6. En la consola donde estés ejecutando el servidor Python, verás los mensajes que indican la recepción de datos del cliente Hércules.
 7. En Hércules, puedes desconectar el cliente haciendo clic en el botón "Disconnect".
 
-El programa de escucha en Python es: [Server](1-Server.py)
+El programa de escucha (no es necesario Hercules SETUP Utility) en Python es: [Server](ClientServerAES_CONSOLA)
 
 ![Conexion](/Images/img-1.png)
 
@@ -59,11 +59,50 @@ Este programa implementa un sistema cliente/servidor en Python utilizando socket
 - **Cliente TCP**: El cliente se conecta al servidor y envía comandos para ser procesados.
 - **Interfaz con Hercules Setup**: El servidor está diseñado para interactuar con el software Hercules Setup para enviar y recibir datos de dispositivos conectados.
 
-El programa Cliente/Servidor en Python es: [Server/Client](2-ServerClient.py)
+El programa Cliente/Servidor en Python es: [Server/Client](ClientServerAES_CONSOLA)
 
 ![Conexion](/Images/img-2.png)
 
-## Ejemplo de Uso 📝
+El programa Cliente/Servidor GRÁFICO (user friendly) sin Hercules SETUP Utility en Python es: [Server/Client](ClientServerAES_GRAFICO)
+
+![Conexion](/Images/img-3.png)
+
+## Ejemplo de Servidor 📝
+
+```python
+# servidor.py
+
+import socket
+
+# Configuración del servidor
+HOST = '127.0.0.1'  # Dirección IP local
+PORT = 12345        # Puerto de escucha
+
+# Crear un socket TCP/IP
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Enlazar el socket a la dirección y puerto
+sock.bind((HOST, PORT))
+sock.listen(1)
+print(f'Servidor escuchando en {HOST}:{PORT}')
+
+# Esperar conexiones
+while True:
+    conn, addr = sock.accept()
+    print(f'Conexión establecida con {addr}')
+    
+    # Recibir datos
+    data = conn.recv(1024)
+    if data:
+        print(f'Datos recibidos: {data.decode()}')
+        # Enviar una respuesta al cliente
+        conn.sendall(b'Hola, cliente!')
+    
+    # Cerrar la conexión
+    conn.close()
+
+````
+## Ejemplo de Cliente 📝
 
 ```python
 # cliente.py
@@ -79,13 +118,16 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Conectar el socket al servidor
 sock.connect((HOST, PORT))
+print(f'Conectado al servidor en {HOST}:{PORT}')
 
-# Enviar un comando al servidor
-sock.sendall(b'Hola, servidor!')
+# Enviar datos al servidor
+mensaje = 'Hola, servidor!'
+sock.sendall(mensaje.encode())
+print(f'Mensaje enviado: {mensaje}')
 
 # Recibir respuesta del servidor
 data = sock.recv(1024)
-print('Respuesta del servidor:', data.decode())
+print(f'Respuesta del servidor: {data.decode()}')
 
 # Cerrar el socket
 sock.close()
