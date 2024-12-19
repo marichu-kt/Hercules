@@ -45,7 +45,7 @@ Hoy exploré cómo crear un servidor en Python utilizando el módulo `socket`, c
 6. En la consola donde estés ejecutando el servidor Python, verás los mensajes que indican la recepción de datos del cliente Hércules.
 7. En Hércules, puedes desconectar el cliente haciendo clic en el botón "Disconnect".
 
-El programa de escucha (no es necesario Hercules SETUP Utility) en Python es: [Server](ClientServerAES_CONSOLA)
+El programa de escucha (no es necesario Hercules SETUP Utility) en Python es: [Server](ClientServer_RSA_CONSOLA)
 
 ![Conexion](/Images/img-1.png)
 
@@ -59,11 +59,11 @@ Este programa implementa un sistema cliente/servidor en Python utilizando socket
 - **Cliente TCP**: El cliente se conecta al servidor y envía comandos para ser procesados.
 - **Interfaz con Hercules Setup**: El servidor está diseñado para interactuar con el software Hercules Setup para enviar y recibir datos de dispositivos conectados.
 
-El programa Cliente/Servidor en Python es: [Server/Client](ClientServerAES_CONSOLA)
+El programa Cliente/Servidor en Python es: [Server/Client](ClientServer_RSA_CONSOLA)
 
 ![Conexion](/Images/img-2.png)
 
-El programa Cliente/Servidor GRÁFICO (user friendly) sin Hercules SETUP Utility en Python es: [Server/Client](ClientServerAES_GRAFICO)
+El programa Cliente/Servidor GRÁFICO (user friendly) sin Hercules SETUP Utility en Python es: [Server/Client](ClientServer_RSA_GRAFICO)
 
 ![Conexion](/Images/img-3.png)
 
