@@ -131,3 +131,76 @@ print(f'Respuesta del servidor: {data.decode()}')
 
 # Cerrar el socket
 sock.close()
+````
+
+# Implementación de claves RSA en el Cliente/Servidor 🔐
+
+El cifrado AES es un algoritmo simétrico que usa una misma clave para cifrar y descifrar datos de forma rápida y segura. En el cifrado asimétrico, la clave pública se comparte para cifrar o verificar, y la clave privada se guarda secreta para descifrar o firmar. Las claves RSA son un par: la pública se comparte para cifrar o verificar, y la privada se guarda secreta para descifrar o firmar. En este caso, se generan las claves publicas y privadas para que la conexión este cifrada y no sea posible realizar un ataque MITM.
+
+## Ejemplo para generar las claves RSA 🔑
+
+```python
+from Crypto.PublicKey import RSA
+
+def generar_claves_rsa():
+    clave = RSA.generate(2048)
+    clave_publica = clave.publickey().export_key()
+    clave_privada = clave.export_key()
+
+    with open("clave_publica.pem", "wb") as f:
+        f.write(clave_publica) 
+
+    with open("clave_privada.pem", "wb") as f:
+        f.write(clave_privada)
+
+if __name__ == "__main__":
+    generar_claves_rsa()
+    print("Claves RSA generadas y guardadas con éxito.")
+```
+
+## Ejemplo para generar las claves RSA 🛡️
+
+```python
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives import padding
+import os
+
+# FUNCIÓN PARA CIFRAR UN MENSAJE
+def cifrar_aes(mensaje, clave):
+    iv = os.urandom(16)  # GENERAR VECTOR DE INICIALIZACIÓN (IV) ALEATORIO
+    cipher = Cipher(algorithms.AES(clave), modes.CBC(iv))
+    encryptor = cipher.encryptor()
+
+    padder = padding.PKCS7(128).padder()
+    mensaje_padded = padder.update(mensaje.encode()) + padder.finalize()
+
+    mensaje_cifrado = encryptor.update(mensaje_padded) + encryptor.finalize()
+    return iv + mensaje_cifrado  # CONCATENAR EL IV AL MENSAJE CIFRADO
+
+# FUNCIÓN PARA DESCIFRAR UN MENSAJE
+def descifrar_aes(mensaje_cifrado, clave):
+    iv = mensaje_cifrado[:16]  # EXTRAER EL VECTOR DE INICIALIZACIÓN (IV)
+    mensaje_cifrado = mensaje_cifrado[16:]
+
+    cipher = Cipher(algorithms.AES(clave), modes.CBC(iv))
+    decryptor = cipher.decryptor()
+
+    mensaje_padded = decryptor.update(mensaje_cifrado) + decryptor.finalize()
+
+    unpadder = padding.PKCS7(128).unpadder()
+    mensaje = unpadder.update(mensaje_padded) + unpadder.finalize()
+    return mensaje.decode()
+
+# USO DEL EJEMPLO
+if __name__ == "__main__":
+    clave = os.urandom(16)  # GENERAR UNA CLAVE DE 16 BYTES (128 BITS)
+    mensaje = "ESTE ES UN MENSAJE SECRETO"
+
+    # CIFRAR
+    mensaje_cifrado = cifrar_aes(mensaje, clave)
+    print(f"MENSAJE CIFRADO: {mensaje_cifrado.hex()}")
+
+    # DESCIFRAR
+    mensaje_descifrado = descifrar_aes(mensaje_cifrado, clave)
+    print(f"MENSAJE DESCIFRADO: {mensaje_descifrado}")
+```
