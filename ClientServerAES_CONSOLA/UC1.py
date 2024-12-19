@@ -12,9 +12,9 @@ def manejar_cliente(cliente, direccion):
             if not datos:
                 break
             mensaje = datos.decode()
-            print(f"\nCliente {direccion}: {mensaje}")
+            print(f"\nServidor {direccion}: {mensaje}")
         except ConnectionResetError:
-            print(f"\nCliente {direccion} desconectado")
+            print(f"\nServidor {direccion} desconectado")
             break
 
     cliente.close()
@@ -23,7 +23,7 @@ def manejar_cliente(cliente, direccion):
 def enviar_mensaje(cliente):
     while True:
         try:
-            mensaje = input("Servidor: ")
+            mensaje = input("Cliente: ")
             cliente.send(mensaje.encode())
         except ConnectionResetError:
             print("Error de conexión. Intentando reconectar...")
